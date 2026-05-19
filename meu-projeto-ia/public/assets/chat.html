@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisualStudio IA - Chat</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/chat.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">🟣 <span>VisualStudio</span></div>
+        <nav class="nav-buttons">
+            <button class="btn-nav active">Chat IA</button>
+            <button class="btn-nav" onclick="window.location.href='conteudos.html'">Conteúdos</button>
+        </nav>
+        <div class="user-area">
+            <span class="icon-settings">⚙️</span>
+            <div class="avatar"></div>
+        </div>
+    </header>
+
+    <main class="app-container">
+        
+        <aside class="sidebar-left">
+            <button class="btn-sidebar-purple">Arquivos gerados</button>
+            <button class="btn-sidebar-dashed">+ Novo chat</button>
+            
+            <div class="recentes-lista">
+                <p class="section-title">Recentes</p>
+                <div class="card-recente active">
+                    <p>Post Instagram - Black</p>
+                    <span>Hoje, 15:32</span>
+                </div>
+                <div class="card-recente">
+                    <p>Post Instagram - Tech</p>
+                    <span>Hoje, 11:16</span>
+                </div>
+                <div class="card-recente">
+                    <p>Banner LinkedIn - Tech</p>
+                    <span>Ontem</span>
+                </div>
+            </div>
+        </aside>
+
+        <section class="chat-area">
+            <div class="chat-header">
+                <h2>Chat com a Visual Studio IA:</h2>
+                <div class="chat-tabs">
+                    <button class="tab active">Chat</button>
+                    <button class="tab">Arquivos</button>
+                </div>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message system">
+                    <div class="msg-avatar">✨</div>
+                    <div class="msg-bubble">
+                        Olá! Sou sua assistente de marketing com IA. Descreva a imagem que você precisa - plataforma, tom, público-alvo - e gero variações prontas para publicação.
+                    </div>
+                </div>
+
+                <div class="message user">
+                    <div class="msg-bubble">
+                        Quero um banner para LinkedIn anunciando nossa nova solução de automação. Tom profissional, cores escuras com roxo. Destaque eficiência e IA.
+                    </div>
+                    <div class="msg-avatar user-av"></div>
+                </div>
+
+                <div class="message system">
+                    <div class="msg-avatar">✨</div>
+                    <div class="msg-bubble">
+                        Perfeito! Gererei o banner alinhado à sua estratégia B2B. Tom profissional - Coerente com a marca.
+                        <div class="image-placeholder">
+                            <span>IMAGEM 1</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <input type="text" placeholder="Descreva a imagem que você deseja gerar...">
+                <button class="btn-send">➔</button>
+            </div>
+        </section>
+
+        <aside class="sidebar-right">
+            <h3>Parâmetros</h3>
+            
+            <div class="form-group">
+                <label>Plataforma:</label>
+                <select>
+                    <option>Instagram</option>
+                    <option>LinkedIn</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Formato:</label>
+                <select>
+                    <option>Banner (1200×627)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Variações:</label>
+                <select>
+                    <option>3 variações</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tom:</label>
+                <select>
+                    <option>Tom Profissional</option>
+                </select>
+            </div>
+        </aside>
+
+    </main>
+
+    <script src="js/chat.js"></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --purple-primary: #8a3ffc;
+    --purple-light: #f4efff;
+    --purple-dark: #6929c4;
+    --bg-gray: #f8f9fa;
+    --border-color: #e0e0e0;
+    --text-dark: #161616;
+}
+
+body {
+    background-color: #ffffff;
+    color: var(--text-dark);
+}
+
+/* NAVBAR COMPARTILHADA (Aparece nas duas telas) */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    border-bottom: 1px solid var(--border-color);
+    background: linear-gradient(90deg, #ffffff, #f3e8ff);
+    height: 60px;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.nav-buttons .btn-nav {
+    border: none;
+    background: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.nav-buttons .btn-nav.active {
+    background-color: var(--purple-primary);
+    color: white;
+}
+
+.user-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.icon-settings {
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    background-color: var(--purple-primary);
+    border-radius: 50%;
+}
