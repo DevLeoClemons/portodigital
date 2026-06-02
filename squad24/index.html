@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Criativos</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --surface: #ffffff;
+      --text: #1a1a1a;
+      --muted: #888;
+      --border: #e0deda;
+      --accent: #1a1a1a;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+
+    header {
+      margin-bottom: 48px;
+    }
+
+    header h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 0.01em;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 36px;
+    }
+
+    .field {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      background: var(--bg);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus {
+      border-color: var(--accent);
+    }
+
+    input[type="text"]::placeholder {
+      color: #bbb;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    button:hover { opacity: 0.82; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    /* Result area */
+    .result {
+      margin-top: 32px;
+      display: none;
+    }
+
+    .result.visible { display: block; }
+
+    .result img {
+      width: 100%;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      display: block;
+    }
+
+    .result-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .result-actions a {
+      flex: 1;
+      display: block;
+      text-align: center;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .result-actions a:hover { background: var(--bg); }
+
+    /* Loading state */
+    .loading-bar {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      margin-top: 20px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .loading-bar.visible { display: block; }
+
+    .loading-bar::after {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 40%;
+      background: var(--accent);
+      border-radius: 2px;
+      animation: slide 1.2s ease-in-out infinite;
+    }
+
+    @keyframes slide {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(350%); }
+    }
+
+    .error-msg {
+      margin-top: 16px;
+      font-size: 13px;
+      color: #c0392b;
+      display: none;
+    }
+
+    .error-msg.visible { display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Gerador de<br>Criativos</h1>
+      <p>Instagram · 1080 × 1080px</p>
+    </header>
+
+    <div class="card">
+      <div class="field">
+        <label>Tema do post</label>
+        <input type="text" id="tema" placeholder="ex: marketing digital para pequenas empresas" />
+      </div>
+      <div class="field">
+        <label>Marca <span style="color:#ccc">(opcional)</span></label>
+        <input type="text" id="brand" placeholder="ex: Squad24" />
+      </div>
+      <button id="btn" onclick="gerar()">Gerar criativo</button>
+      <div class="loading-bar" id="loading"></div>
+      <div class="error-msg" id="error"></div>
+    </div>
+
+    <div class="result" id="result">
+      <img id="output-img" src="" alt="Criativo gerado" />
+      <div class="result-actions">
+        <a id="download-link" href="#" download="criativo.png">↓ Baixar PNG</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function gerar() {
+      const tema = document.getElementById("tema").value.trim();
+      const brand = document.getElementById("brand").value.trim();
+      const btn = document.getElementById("btn");
+      const loading = document.getElementById("loading");
+      const error = document.getElementById("error");
+      const result = document.getElementById("result");
+
+      if (!tema) {
+        showError("Preencha o tema do post.");
+        return;
+      }
+
+      // Reset UI
+      error.classList.remove("visible");
+      result.classList.remove("visible");
+      btn.disabled = true;
+      btn.textContent = "Gerando...";
+      loading.classList.add("visible");
+
+      try {
+        const resp = await fetch("http://localhost:5000/gerar", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ tema, brand })
+        });
+
+        if (!resp.ok) {
+          const data = await resp.json().catch(() => ({}));
+          throw new Error(data.erro || `Erro ${resp.status}`);
+        }
+
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+
+        document.getElementById("output-img").src = url;
+        document.getElementById("download-link").href = url;
+        result.classList.add("visible");
+
+      } catch (err) {
+        showError(err.message || "Erro ao conectar com o servidor.");
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "Gerar criativo";
+        loading.classList.remove("visible");
+      }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById("error");
+      el.textContent = msg;
+      el.classList.add("visible");
+    }
+
+    // Submit on Enter
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter") gerar();
+    });
+  </script>
+</body>
+</html>
